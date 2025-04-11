@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <h1>Contact Us</h1>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your name" >
+      <input type="email" id="email" placeholder="Your email" >
+      <input type="tel" id="contact" placeholder="Your phone number" >
+      <input type="text" id="subject" placeholder="Subject" >
+      <textarea id="issue" placeholder="Describe your issue" ></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const contact = document.getElementById('contact').value;
+      const subject = document.getElementById('subject').value;
+      const issue = document.getElementById('issue').value;
+
+      axios.post('http://localhost:3000/submit', {
+        name: name,
+          email: email,
+          contact: contact,
+          subject: subject,
+          issue: issue,
+      })
+      .then(res => {
+        alert('Form submitted successfully!');
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Submission failed!');
+      });
+    });
+  </script>
+</body>
+</html>
